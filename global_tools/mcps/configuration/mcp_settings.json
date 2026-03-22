@@ -1,0 +1,36 @@
+{
+  "environmentVariables": {
+    "GITHUB_TOKEN": "Set your GitHub Personal Access Token",
+    "GOOGLE_CREDENTIALS_PATH": "Path to Google service account credentials",
+    "SUPABASE_URL": "Your Supabase project URL",
+    "SUPABASE_ANON_KEY": "Your Supabase anonymous key",
+    "NETLIFY_TOKEN": "Your Netlify authentication token",
+    "OPENAI_API_KEY": "For AI features (optional)",
+    "STRIPE_SECRET_KEY": "For payment processing (rental sites)"
+  },
+  "installationInstructions": {
+    "coreMcps": "Run: npm install -g @modelcontextprotocol/server-filesystem @modelcontextprotocol/server-git @modelcontextprotocol/server-sqlite @modelcontextprotocol/server-web-search @modelcontextprotocol/server-browser-automation",
+    "optionalMcps": "Run: npm install -g @modelcontextprotocol/server-github @modelcontextprotocol/server-gdrive",
+    "customMcps": "Place custom MCP servers in global_tools/mcps/custom/ directory"
+  },
+  "usageNotes": {
+    "filesystem": "Provides file operations in current directory",
+    "git": "Git operations on repositories",
+    "sqlite": "SQLite database operations",
+    "web-search": "Web search capabilities (requires internet)",
+    "browser-automation": "Headless browser automation",
+    "github": "GitHub API access (requires token)",
+    "gdrive": "Google Drive access (requires service account)",
+    "supabase": "Custom Supabase operations",
+    "netlify": "Custom Netlify deployment operations",
+    "audio-processing": "Audio file processing utilities",
+    "rental-management": "Rental property management operations"
+  },
+  "configurationSteps": [
+    "1. Copy claude_desktop_config.json to ~/.hermes/mcp_servers.json",
+    "2. Set environment variables in your shell profile",
+    "3. Install required MCP servers globally",
+    "4. Create custom MCP servers as needed",
+    "5. Restart Claude Desktop/Hermes"
+  ]
+}

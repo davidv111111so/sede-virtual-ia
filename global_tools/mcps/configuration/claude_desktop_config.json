@@ -1,0 +1,61 @@
+{
+  "mcpServers": {
+    "filesystem": {
+      "command": "npx",
+      "args": ["-y", "@modelcontextprotocol/server-filesystem", "."]
+    },
+    "git": {
+      "command": "npx",
+      "args": ["-y", "@modelcontextprotocol/server-git"]
+    },
+    "sqlite": {
+      "command": "npx",
+      "args": ["-y", "@modelcontextprotocol/server-sqlite"]
+    },
+    "web-search": {
+      "command": "npx",
+      "args": ["-y", "@modelcontextprotocol/server-web-search"]
+    },
+    "browser-automation": {
+      "command": "npx",
+      "args": ["-y", "@modelcontextprotocol/server-browser-automation"]
+    },
+    "github": {
+      "command": "npx",
+      "args": ["-y", "@modelcontextprotocol/server-github"],
+      "env": {
+        "GITHUB_PERSONAL_ACCESS_TOKEN": "${GITHUB_TOKEN}"
+      }
+    },
+    "gdrive": {
+      "command": "npx",
+      "args": ["-y", "@modelcontextprotocol/server-gdrive"],
+      "env": {
+        "GOOGLE_APPLICATION_CREDENTIALS": "${GOOGLE_CREDENTIALS_PATH}"
+      }
+    },
+    "supabase": {
+      "command": "node",
+      "args": ["global_tools/mcps/custom/supabase_mcp.js"],
+      "env": {
+        "SUPABASE_URL": "${SUPABASE_URL}",
+        "SUPABASE_ANON_KEY": "${SUPABASE_ANON_KEY}"
+      }
+    },
+    "netlify": {
+      "command": "node",
+      "args": ["global_tools/mcps/custom/netlify_mcp.js"],
+      "env": {
+        "NETLIFY_AUTH_TOKEN": "${NETLIFY_TOKEN}"
+      }
+    },
+    "audio-processing": {
+      "command": "python",
+      "args": ["global_tools/mcps/custom/audio_mcp.py"]
+    },
+    "rental-management": {
+      "command": "python",
+      "args": ["global_tools/mcps/custom/rental_mcp.py"]
+    }
+  }
+}
