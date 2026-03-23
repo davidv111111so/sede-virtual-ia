@@ -92,13 +92,13 @@
             <div
               class="w-2.5 h-2.5 bg-blue-500 rounded shadow-[0_0_8px_#3b82f6]"
             ></div>
-            Lab. Spectrum
+            Level Audio
           </div>
           <div class="flex items-center gap-3 mb-1.5 text-slate-400">
             <div
               class="w-2.5 h-2.5 bg-amber-500 rounded shadow-[0_0_8px_#f59e0b]"
             ></div>
-            Paradise Premium
+            Paradise Rentals
           </div>
           <div class="flex items-center gap-3 mb-1.5 text-slate-400">
             <div
@@ -110,13 +110,13 @@
             <div
               class="w-2.5 h-2.5 bg-red-500 rounded shadow-[0_0_8px_#ef4444]"
             ></div>
-            Car Scrapping Unit
+            Marlon So Ag
           </div>
           <div class="flex items-center gap-3 text-slate-400">
             <div
               class="w-2.5 h-2.5 bg-purple-500 rounded shadow-[0_0_8px_#a855f7]"
             ></div>
-            Core Servers
+            Hermes Core
           </div>
         </div>
       </div>
@@ -183,12 +183,12 @@
         spectrum: {
           color: "rgba(59, 130, 246, 0.08)",
           borderColor: "rgba(59, 130, 246, 0.4)",
-          label: "Spectrum Audio",
+          label: "Level Audio",
         },
         paradise: {
           color: "rgba(245, 158, 11, 0.08)",
           borderColor: "rgba(245, 158, 11, 0.4)",
-          label: "Paradise R.E.",
+          label: "Paradise Rentals",
         },
         blueprint: {
           color: "rgba(16, 185, 129, 0.08)",
@@ -198,23 +198,23 @@
         car_scrap: {
           color: "rgba(239, 68, 68, 0.08)",
           borderColor: "rgba(239, 68, 68, 0.4)",
-          label: "Scrapping Unit",
+          label: "Marlon So Ag",
         },
         servers: {
           color: "rgba(168, 85, 247, 0.08)",
           borderColor: "rgba(168, 85, 247, 0.4)",
-          label: "Data Center",
+          label: "Hermes Core",
         },
       };
 
       const agents = [
         {
           id: "hermes",
-          name: "Hermes",
-          role: "Messenger orchestrator",
+          name: "Hermes my bro",
+          role: "General purpose orchestrator",
           color: "#a855f7",
           tailwindColor: "text-purple-400",
-          emoji: "🕊️",
+          emoji: "🤖",
           x: 0,
           y: 0,
           tx: 0,
@@ -233,17 +233,17 @@
         },
         {
           id: "spectrum_dev",
-          name: "Roo Code",
-          role: "Core dev & automation",
+          name: "Level Audio",
+          role: "Spectrum audio app",
           color: "#3b82f6",
           tailwindColor: "text-blue-400",
-          emoji: "🦘",
+          emoji: "🎧",
           x: 0,
           y: 0,
           tx: 0,
           ty: 0,
           speed: 2,
-          task: "Deploying V3...",
+          task: "Processing audio...",
           status: "coding",
           stats: {
             v1: "100%",
@@ -256,11 +256,11 @@
         },
         {
           id: "paradise_ops",
-          name: "Andrea / Gustavo",
-          role: "Real Estate operations",
+          name: "Paradise Premium",
+          role: "Furnished properties & boats",
           color: "#f59e0b",
           tailwindColor: "text-amber-400",
-          emoji: "👩‍💻",
+          emoji: "🛥️",
           x: 0,
           y: 0,
           tx: 0,
@@ -279,11 +279,11 @@
         },
         {
           id: "blueprint_ops",
-          name: "Andrés",
-          role: "BluePrint remodeling",
+          name: "BluePrint MI",
+          role: "USA Home restoration & remodel",
           color: "#10b981",
           tailwindColor: "text-emerald-400",
-          emoji: "👷",
+          emoji: "🏠",
           x: 0,
           y: 0,
           tx: 0,
@@ -302,11 +302,11 @@
         },
         {
           id: "scrap_bot",
-          name: "Scraper Pro",
-          role: "Marketplace extraction",
+          name: "Marlon So Ag",
+          role: "Car scrapping, marketing & selling",
           color: "#ef4444",
           tailwindColor: "text-red-400",
-          emoji: "🏎️",
+          emoji: "🚗",
           x: 0,
           y: 0,
           tx: 0,
@@ -570,33 +570,33 @@
 
       const mockActions = {
         spectrum_dev: [
-          "Optimizando Level Audio...",
-          "Configurando DSP",
-          "Sincronizando con GitHub",
-          "Revisando CPU PM2",
+          "Optimizando DSP de Level Audio...",
+          "Configurando ecualizador",
+          "Procesando pistas de audio...",
+          "Revisando CPU de streaming",
         ],
         paradise_ops: [
-          "Actualizando base de datos",
-          "Scrapeando precios Airbnb",
-          "Enviando reporte diario",
-          "Calculando ROI",
+          "Actualizando disponibilidad de botes",
+          "Scrapeando rentas amobladas",
+          "Enviando cotización de yate",
+          "Calculando ROI de propiedad",
         ],
         blueprint_ops: [
-          "Diseñando modelo 3D",
-          "Cotizando mármol italiano",
+          "Diseñando modelo 3D para casa en USA",
+          "Cotizando materiales de restauración",
           "Renderizando fachada",
-          "Agendando contratista",
+          "Agendando contratista en Miami",
         ],
         scrap_bot: [
-          "Extrayendo autos de FB",
-          "Alerta: Honda Civic bajo de precio",
-          "Limpiando base de datos",
-          "Filtrando por año > 2018",
+          "Extrayendo autos para scrapping",
+          "Alerta: Oportunidad de marketing",
+          "Campaña de ventas activa",
+          "Filtrando leads de vehículos",
         ],
         hermes: [
-          "Ruteando mensaje a BluePrint",
-          "Consultando memoria RAG",
-          "Ejecutando script de sistema",
+          "Ruteando mensaje a BluePrint MI",
+          "Consultando memoria general",
+          "Orquestando agentes",
           "Ping a agentes: 12ms",
         ],
       };
