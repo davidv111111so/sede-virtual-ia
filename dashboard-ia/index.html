@@ -8,7 +8,6 @@
     <style>
       body {
         margin: 0;
-        overflow: hidden;
         background-color: #0f172a;
         color: #e2e8f0;
         font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
@@ -18,12 +17,16 @@
         border-radius: 12px;
         box-shadow: inset 0 0 20px rgba(0, 0, 0, 0.5);
       }
-      .log-panel::-webkit-scrollbar {
-        width: 4px;
+      .custom-scrollbar::-webkit-scrollbar {
+        width: 6px;
       }
-      .log-panel::-webkit-scrollbar-thumb {
+      .custom-scrollbar::-webkit-scrollbar-track {
+        background: rgba(15, 23, 42, 0.5);
+        border-radius: 8px;
+      }
+      .custom-scrollbar::-webkit-scrollbar-thumb {
         background-color: #475569;
-        border-radius: 4px;
+        border-radius: 8px;
       }
       .glass-panel {
         background: rgba(30, 41, 59, 0.7);
@@ -41,12 +44,12 @@
     </style>
   </head>
   <body
-    class="flex h-screen p-4 gap-6 bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-slate-800 via-slate-900 to-black"
+    class="flex flex-col md:flex-row h-screen p-4 gap-6 bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-slate-800 via-slate-900 to-black overflow-hidden"
   >
     <!-- Panel Izquierdo: El Mapa RPG -->
-    <div class="flex-grow flex flex-col gap-4 w-7/12">
+    <div class="flex flex-col gap-4 w-full md:w-7/12 h-full">
       <div
-        class="flex justify-between items-center glass-panel p-5 rounded-2xl shadow-2xl"
+        class="flex justify-between items-center glass-panel p-5 rounded-2xl shadow-2xl shrink-0"
       >
         <div>
           <h1
@@ -75,13 +78,13 @@
 
       <!-- Lienzo del Juego -->
       <div
-        class="flex-grow relative w-full rounded-2xl overflow-hidden glass-panel p-1"
+        class="relative w-full rounded-2xl overflow-hidden glass-panel p-1 flex-grow"
       >
         <canvas id="game-canvas" class="w-full h-full rounded-xl"></canvas>
 
         <!-- Overlay Info -->
         <div
-          class="absolute top-5 left-5 bg-slate-900/80 p-4 rounded-xl backdrop-blur-md border border-slate-700/50 text-xs shadow-xl"
+          class="absolute top-5 left-5 bg-slate-900/80 p-4 rounded-xl backdrop-blur-md border border-slate-700/50 text-xs shadow-xl pointer-events-none"
         >
           <p
             class="font-bold text-slate-300 mb-2 uppercase tracking-wider border-b border-slate-700 pb-2"
@@ -123,22 +126,20 @@
     </div>
 
     <!-- Panel Derecho: Data Cards Profesionales y Logs -->
-    <div class="w-5/12 flex flex-col gap-4">
-      <!-- Estado de Agentes (Data Cards) -->
-      <div
-        class="flex-shrink-0 overflow-y-auto max-h-[60%] pr-2 pb-2 custom-scrollbar"
-      >
-        <div class="grid grid-cols-2 gap-4" id="agent-list">
+    <div class="w-full md:w-5/12 flex flex-col gap-4 h-full">
+      <!-- Estado de Agentes (Data Cards) con Scroll Fijo -->
+      <div class="overflow-y-auto custom-scrollbar pr-2 h-[55%] shrink-0">
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-4 pb-2" id="agent-list">
           <!-- Generado por JS -->
         </div>
       </div>
 
-      <!-- Consola de Logs (Simulando PM2) -->
+      <!-- Consola de Logs -->
       <div
-        class="glass-panel p-4 rounded-2xl shadow-2xl flex-grow flex flex-col min-h-0"
+        class="glass-panel p-4 rounded-2xl shadow-2xl flex flex-col flex-grow min-h-0"
       >
         <div
-          class="flex justify-between items-center mb-3 border-b border-slate-700 pb-2"
+          class="flex justify-between items-center mb-3 border-b border-slate-700 pb-2 shrink-0"
         >
           <div class="flex items-center gap-2">
             <span
@@ -158,7 +159,7 @@
         </div>
         <div
           id="log-container"
-          class="log-panel flex-grow overflow-y-auto font-mono text-[11px] leading-relaxed flex flex-col gap-1.5 pr-2"
+          class="custom-scrollbar flex-grow overflow-y-auto font-mono text-[11px] leading-relaxed flex flex-col gap-1.5 pr-2"
         >
           <!-- Logs van aquí -->
         </div>
@@ -177,7 +178,7 @@
         canvas.height = height;
       }
       window.addEventListener("resize", resizeCanvas);
-      resizeCanvas();
+      setTimeout(resizeCanvas, 100);
 
       const zones = {
         spectrum: {
@@ -303,7 +304,7 @@
         {
           id: "scrap_bot",
           name: "Marlon So Ag",
-          role: "Car scrapping, marketing & selling",
+          role: "Car scrapping & selling",
           color: "#ef4444",
           tailwindColor: "text-red-400",
           emoji: "🚗",
@@ -326,12 +327,13 @@
       ];
 
       agents.forEach((a) => {
-        a.x = Math.random() * width;
-        a.y = Math.random() * height;
+        a.x = Math.random() * (width || 500);
+        a.y = Math.random() * (height || 500);
         setNewTarget(a);
       });
 
       function setNewTarget(agent) {
+        if (!width || !height) return;
         let targetZone = null;
         if (agent.id === "spectrum_dev")
           targetZone = {
@@ -379,9 +381,13 @@
       }
 
       function gameLoop() {
+        if (!width || !height) {
+          requestAnimationFrame(gameLoop);
+          return;
+        }
+
         ctx.clearRect(0, 0, width, height);
 
-        // Grid background
         ctx.strokeStyle = "rgba(255,255,255,0.02)";
         ctx.lineWidth = 1;
         for (let i = 0; i < width; i += 50) {
@@ -445,7 +451,6 @@
             if (Math.random() < 0.02) setNewTarget(agent);
           }
 
-          // Avatar Background Glow
           const gradient = ctx.createRadialGradient(
             agent.x,
             agent.y,
@@ -461,7 +466,6 @@
           ctx.arc(agent.x, agent.y, 25, 0, Math.PI * 2);
           ctx.fill();
 
-          // Avatar Circle
           ctx.fillStyle = "#1e293b";
           ctx.beginPath();
           ctx.arc(agent.x, agent.y, 16, 0, Math.PI * 2);
@@ -512,10 +516,10 @@
           card.style.borderTopColor = a.color;
           card.innerHTML = `
                     <div class="flex items-center gap-3 mb-3">
-                        <div class="w-10 h-10 rounded-full bg-slate-800 flex items-center justify-center text-xl shadow-inner border border-slate-700">${a.emoji}</div>
-                        <div>
-                            <div class="font-bold text-sm ${a.tailwindColor}">${a.name}</div>
-                            <div class="text-[10px] text-slate-400 leading-tight">${a.role}</div>
+                        <div class="w-10 h-10 rounded-full bg-slate-800 flex items-center justify-center text-xl shadow-inner border border-slate-700 shrink-0">${a.emoji}</div>
+                        <div class="min-w-0">
+                            <div class="font-bold text-sm ${a.tailwindColor} truncate">${a.name}</div>
+                            <div class="text-[10px] text-slate-400 leading-tight truncate">${a.role}</div>
                         </div>
                     </div>
                     
@@ -549,18 +553,16 @@
         logEl.className =
           "flex gap-2 items-start py-1.5 border-b border-slate-800/50 hover:bg-slate-800/30 px-2 rounded transition-colors";
         logEl.innerHTML = `
-                <span class="text-slate-600 shrink-0">[${time}]</span>
-                <span style="color: ${agent.color}" class="font-bold shrink-0 w-24 truncate">${agent.name}:</span>
-                <span class="text-slate-300 break-words">${action}</span>
+                <span class="text-slate-600 shrink-0 text-[10px]">[${time}]</span>
+                <span style="color: ${agent.color}" class="font-bold shrink-0 w-20 truncate">${agent.name}:</span>
+                <span class="text-slate-300 break-words flex-grow">${action}</span>
             `;
         logContainer.appendChild(logEl);
         logContainer.scrollTop = logContainer.scrollHeight;
         agent.task = action.substring(0, 20) + "...";
 
-        // Simular variación de métricas
-        if (Math.random() > 0.7) {
+        if (Math.random() > 0.7)
           agent.stats.v2 = (parseInt(agent.stats.v2) + 1).toString();
-        }
         updateUI();
       }
 
@@ -582,10 +584,10 @@
           "Calculando ROI de propiedad",
         ],
         blueprint_ops: [
-          "Diseñando modelo 3D para casa en USA",
-          "Cotizando materiales de restauración",
+          "Diseñando modelo 3D en USA",
+          "Cotizando materiales",
           "Renderizando fachada",
-          "Agendando contratista en Miami",
+          "Agendando contratista",
         ],
         scrap_bot: [
           "Extrayendo autos para scrapping",
@@ -594,7 +596,7 @@
           "Filtrando leads de vehículos",
         ],
         hermes: [
-          "Ruteando mensaje a BluePrint MI",
+          "Ruteando mensaje a BluePrint",
           "Consultando memoria general",
           "Orquestando agentes",
           "Ping a agentes: 12ms",
@@ -609,9 +611,11 @@
         addLog(randomAgent, randomAction);
       }, 3000);
 
-      updateUI();
-      addLog(agents[0], "Sistema Hermes V3 conectado y monitoreando.");
-      requestAnimationFrame(gameLoop);
+      setTimeout(() => {
+        updateUI();
+        addLog(agents[0], "Sistema Hermes V3 conectado y monitoreando.");
+        requestAnimationFrame(gameLoop);
+      }, 500);
     </script>
   </body>
 </html>
