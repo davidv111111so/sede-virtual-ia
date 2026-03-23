@@ -9,120 +9,156 @@
       body {
         margin: 0;
         overflow: hidden;
-        background-color: #1a1a2e;
-        color: #e0e0e0;
+        background-color: #0f172a;
+        color: #e2e8f0;
         font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
       }
       #game-canvas {
-        background-color: #16213e;
-        border-radius: 8px;
-        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+        background-color: #1e293b;
+        border-radius: 12px;
+        box-shadow: inset 0 0 20px rgba(0, 0, 0, 0.5);
       }
       .log-panel::-webkit-scrollbar {
-        width: 6px;
+        width: 4px;
       }
       .log-panel::-webkit-scrollbar-thumb {
-        background-color: #4a4e69;
+        background-color: #475569;
         border-radius: 4px;
+      }
+      .glass-panel {
+        background: rgba(30, 41, 59, 0.7);
+        backdrop-filter: blur(10px);
+        border: 1px solid rgba(255, 255, 255, 0.1);
       }
       .agent-card {
         transition: all 0.3s ease;
       }
       .agent-card:hover {
-        transform: translateY(-2px);
-        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+        transform: translateY(-4px);
+        box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.5);
+        border-color: rgba(255, 255, 255, 0.2);
       }
     </style>
   </head>
-  <body class="flex h-screen p-4 gap-4">
+  <body
+    class="flex h-screen p-4 gap-6 bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-slate-800 via-slate-900 to-black"
+  >
     <!-- Panel Izquierdo: El Mapa RPG -->
-    <div class="flex-grow flex flex-col gap-4">
+    <div class="flex-grow flex flex-col gap-4 w-7/12">
       <div
-        class="flex justify-between items-center bg-[#0f3460] p-4 rounded-xl shadow-lg"
+        class="flex justify-between items-center glass-panel p-5 rounded-2xl shadow-2xl"
       >
         <div>
-          <h1 class="text-2xl font-bold text-white">Sede Central IA</h1>
-          <p class="text-sm text-blue-300">
-            Monitor Visual PM2 - Servidor Hetzner
+          <h1
+            class="text-3xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-purple-500 tracking-tight"
+          >
+            AI Town Dashboard
+          </h1>
+          <p class="text-sm text-slate-400 mt-1">
+            Real-time monitoring of agent activities & system health
           </p>
         </div>
-        <div class="flex gap-2">
+        <div class="flex flex-col items-end gap-2">
           <span
-            class="px-3 py-1 bg-green-500/20 text-green-400 rounded-full text-sm font-semibold border border-green-500/50 flex items-center gap-2"
+            class="px-4 py-1.5 bg-emerald-500/10 text-emerald-400 rounded-full text-xs font-bold border border-emerald-500/20 flex items-center gap-2 uppercase tracking-wider shadow-[0_0_10px_rgba(16,185,129,0.2)]"
           >
             <span
-              class="w-2 h-2 bg-green-500 rounded-full animate-pulse"
+              class="w-2 h-2 bg-emerald-500 rounded-full animate-pulse shadow-[0_0_5px_#10b981]"
             ></span>
-            Sistema Online
+            System Online
           </span>
+          <span class="text-[10px] text-slate-500 font-mono"
+            >HETZNER VPS - 65.108.151.207</span
+          >
         </div>
       </div>
 
       <!-- Lienzo del Juego -->
       <div
-        class="flex-grow relative w-full rounded-xl overflow-hidden border border-[#0f3460]"
+        class="flex-grow relative w-full rounded-2xl overflow-hidden glass-panel p-1"
       >
-        <canvas id="game-canvas" class="w-full h-full"></canvas>
+        <canvas id="game-canvas" class="w-full h-full rounded-xl"></canvas>
 
         <!-- Overlay Info -->
         <div
-          class="absolute top-4 left-4 bg-black/50 p-3 rounded-lg backdrop-blur-sm border border-white/10 text-sm"
+          class="absolute top-5 left-5 bg-slate-900/80 p-4 rounded-xl backdrop-blur-md border border-slate-700/50 text-xs shadow-xl"
         >
-          <p class="font-bold text-white mb-1">Zonas de la Sede:</p>
-          <div class="flex items-center gap-2 mb-1">
-            <div class="w-3 h-3 bg-blue-500 rounded-sm"></div>
-            Lab. Spectrum (Audio)
+          <p
+            class="font-bold text-slate-300 mb-2 uppercase tracking-wider border-b border-slate-700 pb-2"
+          >
+            Active Zones
+          </p>
+          <div class="flex items-center gap-3 mb-1.5 text-slate-400">
+            <div
+              class="w-2.5 h-2.5 bg-blue-500 rounded shadow-[0_0_8px_#3b82f6]"
+            ></div>
+            Lab. Spectrum
           </div>
-          <div class="flex items-center gap-2 mb-1">
-            <div class="w-3 h-3 bg-amber-500 rounded-sm"></div>
-            Oficina Paradise (Real Estate)
+          <div class="flex items-center gap-3 mb-1.5 text-slate-400">
+            <div
+              class="w-2.5 h-2.5 bg-amber-500 rounded shadow-[0_0_8px_#f59e0b]"
+            ></div>
+            Paradise Premium
           </div>
-          <div class="flex items-center gap-2 mb-1">
-            <div class="w-3 h-3 bg-emerald-500 rounded-sm"></div>
-            BluePrint (Remodelaciones)
+          <div class="flex items-center gap-3 mb-1.5 text-slate-400">
+            <div
+              class="w-2.5 h-2.5 bg-emerald-500 rounded shadow-[0_0_8px_#10b981]"
+            ></div>
+            BluePrint MI
           </div>
-          <div class="flex items-center gap-2 mb-1">
-            <div class="w-3 h-3 bg-red-500 rounded-sm"></div>
+          <div class="flex items-center gap-3 mb-1.5 text-slate-400">
+            <div
+              class="w-2.5 h-2.5 bg-red-500 rounded shadow-[0_0_8px_#ef4444]"
+            ></div>
             Car Scrapping Unit
           </div>
-          <div class="flex items-center gap-2">
-            <div class="w-3 h-3 bg-purple-500 rounded-sm"></div>
-            Cuarto de Servidores
+          <div class="flex items-center gap-3 text-slate-400">
+            <div
+              class="w-2.5 h-2.5 bg-purple-500 rounded shadow-[0_0_8px_#a855f7]"
+            ></div>
+            Core Servers
           </div>
         </div>
       </div>
     </div>
 
-    <!-- Panel Derecho: Logs y Estado de Agentes -->
-    <div class="w-96 flex flex-col gap-4">
-      <!-- Estado de Agentes -->
+    <!-- Panel Derecho: Data Cards Profesionales y Logs -->
+    <div class="w-5/12 flex flex-col gap-4">
+      <!-- Estado de Agentes (Data Cards) -->
       <div
-        class="bg-[#0f3460] p-4 rounded-xl shadow-lg flex-shrink-0 overflow-y-auto max-h-[40%]"
+        class="flex-shrink-0 overflow-y-auto max-h-[60%] pr-2 pb-2 custom-scrollbar"
       >
-        <h2 class="text-lg font-bold text-white mb-3">Agentes Activos (PM2)</h2>
-        <div class="flex flex-col gap-3" id="agent-list">
+        <div class="grid grid-cols-2 gap-4" id="agent-list">
           <!-- Generado por JS -->
         </div>
       </div>
 
       <!-- Consola de Logs (Simulando PM2) -->
       <div
-        class="bg-[#1a1a2e] border border-[#0f3460] p-4 rounded-xl shadow-lg flex-grow flex flex-col min-h-0"
+        class="glass-panel p-4 rounded-2xl shadow-2xl flex-grow flex flex-col min-h-0"
       >
-        <div class="flex justify-between items-center mb-3">
-          <h2 class="text-sm font-bold text-gray-400 uppercase tracking-wider">
-            Terminal de Actividad
-          </h2>
+        <div
+          class="flex justify-between items-center mb-3 border-b border-slate-700 pb-2"
+        >
+          <div class="flex items-center gap-2">
+            <span
+              class="text-xs font-bold text-slate-300 uppercase tracking-widest"
+              >Live Terminal</span
+            >
+            <span
+              class="w-1.5 h-1.5 bg-blue-500 rounded-full animate-ping"
+            ></span>
+          </div>
           <button
             onclick="clearLogs()"
-            class="text-xs text-blue-400 hover:text-blue-300"
+            class="text-[10px] text-slate-400 hover:text-white uppercase tracking-wider transition-colors px-2 py-1 rounded bg-slate-800 hover:bg-slate-700"
           >
-            Limpiar
+            Clear
           </button>
         </div>
         <div
           id="log-container"
-          class="log-panel flex-grow overflow-y-auto font-mono text-xs flex flex-col gap-1 pr-2"
+          class="log-panel flex-grow overflow-y-auto font-mono text-[11px] leading-relaxed flex flex-col gap-1.5 pr-2"
         >
           <!-- Logs van aquí -->
         </div>
@@ -135,8 +171,8 @@
       let width, height;
 
       function resizeCanvas() {
-        width = canvas.parentElement.clientWidth;
-        height = canvas.parentElement.clientHeight;
+        width = canvas.parentElement.clientWidth - 8;
+        height = canvas.parentElement.clientHeight - 8;
         canvas.width = width;
         canvas.height = height;
       }
@@ -145,102 +181,147 @@
 
       const zones = {
         spectrum: {
-          color: "rgba(59, 130, 246, 0.15)",
-          borderColor: "#3b82f6",
-          label: "Spectrum Dev Zone",
+          color: "rgba(59, 130, 246, 0.08)",
+          borderColor: "rgba(59, 130, 246, 0.4)",
+          label: "Spectrum Audio",
         },
         paradise: {
-          color: "rgba(245, 158, 11, 0.15)",
-          borderColor: "#f59e0b",
-          label: "Paradise Operations",
+          color: "rgba(245, 158, 11, 0.08)",
+          borderColor: "rgba(245, 158, 11, 0.4)",
+          label: "Paradise R.E.",
         },
         blueprint: {
-          color: "rgba(16, 185, 129, 0.15)",
-          borderColor: "#10b981",
-          label: "BluePrint (Remodelaciones)",
+          color: "rgba(16, 185, 129, 0.08)",
+          borderColor: "rgba(16, 185, 129, 0.4)",
+          label: "BluePrint MI",
         },
         car_scrap: {
-          color: "rgba(239, 68, 68, 0.15)",
-          borderColor: "#ef4444",
-          label: "Car Scrapping",
+          color: "rgba(239, 68, 68, 0.08)",
+          borderColor: "rgba(239, 68, 68, 0.4)",
+          label: "Scrapping Unit",
         },
         servers: {
-          color: "rgba(168, 85, 247, 0.15)",
-          borderColor: "#a855f7",
-          label: "Core Servers",
+          color: "rgba(168, 85, 247, 0.08)",
+          borderColor: "rgba(168, 85, 247, 0.4)",
+          label: "Data Center",
         },
       };
 
       const agents = [
         {
           id: "hermes",
-          name: "Hermes Master",
-          role: "Gestor Principal",
+          name: "Hermes",
+          role: "Messenger orchestrator",
           color: "#a855f7",
-          emoji: "🧙‍♂️",
+          tailwindColor: "text-purple-400",
+          emoji: "🕊️",
           x: 0,
           y: 0,
           tx: 0,
           ty: 0,
           speed: 1.5,
-          task: "Supervisando PM2",
+          task: "Routing messages...",
           status: "idle",
+          stats: {
+            v1: "98%",
+            l1: "Uptime",
+            v2: "42",
+            l2: "Messages/hr",
+            v3: "12ms",
+            l3: "Latency",
+          },
         },
         {
           id: "spectrum_dev",
-          name: "Roo (Spectrum)",
-          role: "Dev Python/Audio",
+          name: "Roo Code",
+          role: "Core dev & automation",
           color: "#3b82f6",
-          emoji: "🎧",
+          tailwindColor: "text-blue-400",
+          emoji: "🦘",
           x: 0,
           y: 0,
           tx: 0,
           ty: 0,
           speed: 2,
-          task: "Optimizando DSP",
+          task: "Deploying V3...",
           status: "coding",
+          stats: {
+            v1: "100%",
+            l1: "Uptime",
+            v2: "156",
+            l2: "Tasks/hr",
+            v3: "0",
+            l3: "Errors",
+          },
         },
         {
           id: "paradise_ops",
-          name: "Andrea/Gustavo Ops",
-          role: "Logística Real Estate",
+          name: "Andrea / Gustavo",
+          role: "Real Estate operations",
           color: "#f59e0b",
-          emoji: "🏢",
+          tailwindColor: "text-amber-400",
+          emoji: "👩‍💻",
           x: 0,
           y: 0,
           tx: 0,
           ty: 0,
           speed: 1.2,
-          task: "Buscando rentas",
+          task: "Updating DB...",
           status: "searching",
+          stats: {
+            v1: "94%",
+            l1: "Uptime",
+            v2: "77",
+            l2: "Requests/hr",
+            v3: "2",
+            l3: "Pending",
+          },
         },
         {
           id: "blueprint_ops",
-          name: "Andrés (BluePrint)",
-          role: "Diseño y Obra",
+          name: "Andrés",
+          role: "BluePrint remodeling",
           color: "#10b981",
-          emoji: "🔨",
+          tailwindColor: "text-emerald-400",
+          emoji: "👷",
           x: 0,
           y: 0,
           tx: 0,
           ty: 0,
           speed: 1.3,
-          task: "Cotizando materiales",
+          task: "Rendering 3D...",
           status: "designing",
+          stats: {
+            v1: "99%",
+            l1: "Uptime",
+            v2: "14",
+            l2: "Quotes/day",
+            v3: "1",
+            l3: "Active Site",
+          },
         },
         {
           id: "scrap_bot",
           name: "Scraper Pro",
-          role: "Cazador de Ofertas",
+          role: "Marketplace extraction",
           color: "#ef4444",
+          tailwindColor: "text-red-400",
           emoji: "🏎️",
           x: 0,
           y: 0,
           tx: 0,
           ty: 0,
           speed: 2.5,
-          task: "Scrapeando Marketplace",
+          task: "Scraping Cars...",
           status: "scraping",
+          stats: {
+            v1: "92%",
+            l1: "Uptime",
+            v2: "850",
+            l2: "Rows/hr",
+            v3: "5",
+            l3: "Alerts",
+          },
         },
       ];
 
@@ -299,15 +380,17 @@
 
       function gameLoop() {
         ctx.clearRect(0, 0, width, height);
-        ctx.strokeStyle = "rgba(255,255,255,0.03)";
+
+        // Grid background
+        ctx.strokeStyle = "rgba(255,255,255,0.02)";
         ctx.lineWidth = 1;
-        for (let i = 0; i < width; i += 40) {
+        for (let i = 0; i < width; i += 50) {
           ctx.beginPath();
           ctx.moveTo(i, 0);
           ctx.lineTo(i, height);
           ctx.stroke();
         }
-        for (let i = 0; i < height; i += 40) {
+        for (let i = 0; i < height; i += 50) {
           ctx.beginPath();
           ctx.moveTo(0, i);
           ctx.lineTo(width, i);
@@ -362,11 +445,28 @@
             if (Math.random() < 0.02) setNewTarget(agent);
           }
 
-          ctx.fillStyle = agent.color;
+          // Avatar Background Glow
+          const gradient = ctx.createRadialGradient(
+            agent.x,
+            agent.y,
+            0,
+            agent.x,
+            agent.y,
+            25,
+          );
+          gradient.addColorStop(0, agent.color + "80");
+          gradient.addColorStop(1, "transparent");
+          ctx.fillStyle = gradient;
+          ctx.beginPath();
+          ctx.arc(agent.x, agent.y, 25, 0, Math.PI * 2);
+          ctx.fill();
+
+          // Avatar Circle
+          ctx.fillStyle = "#1e293b";
           ctx.beginPath();
           ctx.arc(agent.x, agent.y, 16, 0, Math.PI * 2);
           ctx.fill();
-          ctx.strokeStyle = "rgba(255,255,255,0.5)";
+          ctx.strokeStyle = agent.color;
           ctx.lineWidth = 2;
           ctx.stroke();
 
@@ -379,7 +479,7 @@
           ctx.font = "bold 10px Tahoma";
           ctx.fillText(agent.name, agent.x, agent.y - 24);
 
-          ctx.fillStyle = "rgba(255,255,255,0.6)";
+          ctx.fillStyle = "rgba(255,255,255,0.5)";
           ctx.font = "9px Tahoma";
           ctx.fillText(agent.task, agent.x, agent.y + 24);
         });
@@ -388,14 +488,17 @@
 
       function drawZone(x, y, w, h, zoneConf) {
         ctx.fillStyle = zoneConf.color;
-        ctx.fillRect(x, y, w, h);
+        ctx.beginPath();
+        ctx.roundRect(x, y, w, h, 8);
+        ctx.fill();
         ctx.strokeStyle = zoneConf.borderColor;
         ctx.lineWidth = 1;
-        ctx.strokeRect(x, y, w, h);
-        ctx.fillStyle = zoneConf.borderColor;
-        ctx.font = "bold 11px Tahoma";
+        ctx.stroke();
+
+        ctx.fillStyle = zoneConf.borderColor.replace("0.4", "0.8");
+        ctx.font = "bold 10px Tahoma";
         ctx.textAlign = "left";
-        ctx.fillText(zoneConf.label, x + 5, y + 15);
+        ctx.fillText(zoneConf.label.toUpperCase(), x + 8, y + 18);
       }
 
       const logContainer = document.getElementById("log-container");
@@ -405,17 +508,35 @@
         agentList.innerHTML = "";
         agents.forEach((a) => {
           const card = document.createElement("div");
-          card.className =
-            "agent-card bg-[#16213e] p-3 rounded-lg border-l-4 flex items-center gap-3 shrink-0";
-          card.style.borderColor = a.color;
+          card.className = `agent-card glass-panel p-4 rounded-xl flex flex-col justify-between border-t-2`;
+          card.style.borderTopColor = a.color;
           card.innerHTML = `
-                    <div class="text-2xl">${a.emoji}</div>
-                    <div class="flex-grow min-w-0">
-                        <div class="font-bold text-xs text-white truncate">${a.name}</div>
-                        <div class="text-[10px] text-gray-400 truncate">${a.role}</div>
+                    <div class="flex items-center gap-3 mb-3">
+                        <div class="w-10 h-10 rounded-full bg-slate-800 flex items-center justify-center text-xl shadow-inner border border-slate-700">${a.emoji}</div>
+                        <div>
+                            <div class="font-bold text-sm ${a.tailwindColor}">${a.name}</div>
+                            <div class="text-[10px] text-slate-400 leading-tight">${a.role}</div>
+                        </div>
                     </div>
-                    <div class="text-right">
-                        <div class="text-[9px] bg-[#0f3460] px-2 py-0.5 rounded text-gray-300 truncate w-20">${a.task}</div>
+                    
+                    <div class="bg-slate-900/50 rounded-lg p-2 mb-3 shadow-inner">
+                        <div class="text-[9px] text-slate-500 uppercase font-bold mb-1">Current Task</div>
+                        <div class="text-[11px] text-slate-300 truncate font-mono">${a.task}</div>
+                    </div>
+
+                    <div class="grid grid-cols-3 gap-2 text-center pt-2 border-t border-slate-700/50">
+                        <div>
+                            <div class="text-sm font-bold ${a.tailwindColor}">${a.stats.v1}</div>
+                            <div class="text-[9px] text-slate-500">${a.stats.l1}</div>
+                        </div>
+                        <div>
+                            <div class="text-sm font-bold ${a.tailwindColor}">${a.stats.v2}</div>
+                            <div class="text-[9px] text-slate-500">${a.stats.l2}</div>
+                        </div>
+                        <div>
+                            <div class="text-sm font-bold ${a.tailwindColor}">${a.stats.v3}</div>
+                            <div class="text-[9px] text-slate-500">${a.stats.l3}</div>
+                        </div>
                     </div>
                 `;
           agentList.appendChild(card);
@@ -425,15 +546,21 @@
       function addLog(agent, action) {
         const time = new Date().toLocaleTimeString("es-CO", { hour12: false });
         const logEl = document.createElement("div");
-        logEl.className = "flex gap-2 items-start py-1 border-b border-white/5";
+        logEl.className =
+          "flex gap-2 items-start py-1.5 border-b border-slate-800/50 hover:bg-slate-800/30 px-2 rounded transition-colors";
         logEl.innerHTML = `
-                <span class="text-gray-500 shrink-0">[${time}]</span>
-                <span style="color: ${agent.color}" class="font-bold shrink-0">${agent.name.split(" ")[0]}:</span>
-                <span class="text-gray-300 break-words">${action}</span>
+                <span class="text-slate-600 shrink-0">[${time}]</span>
+                <span style="color: ${agent.color}" class="font-bold shrink-0 w-24 truncate">${agent.name}:</span>
+                <span class="text-slate-300 break-words">${action}</span>
             `;
         logContainer.appendChild(logEl);
         logContainer.scrollTop = logContainer.scrollHeight;
-        agent.task = action;
+        agent.task = action.substring(0, 20) + "...";
+
+        // Simular variación de métricas
+        if (Math.random() > 0.7) {
+          agent.stats.v2 = (parseInt(agent.stats.v2) + 1).toString();
+        }
         updateUI();
       }
 
@@ -446,31 +573,31 @@
           "Optimizando Level Audio...",
           "Configurando DSP",
           "Sincronizando con GitHub",
-          "Revisando commits",
+          "Revisando CPU PM2",
         ],
         paradise_ops: [
-          "Analizando Paradise Premium",
-          "Actualizando rentas",
-          "Buscando apartamentos",
-          "Generando ROI",
+          "Actualizando base de datos",
+          "Scrapeando precios Airbnb",
+          "Enviando reporte diario",
+          "Calculando ROI",
         ],
         blueprint_ops: [
-          "Diseñando BluePrint Obra",
-          "Cotizando mármol",
-          "Renderizando 3D",
-          "Llamando a contratistas",
+          "Diseñando modelo 3D",
+          "Cotizando mármol italiano",
+          "Renderizando fachada",
+          "Agendando contratista",
         ],
         scrap_bot: [
-          "Scrapeando autos usados",
-          "Detectando baja de precios",
-          "Alertando oferta en Marketplace",
-          "Filtrando por kilometraje",
+          "Extrayendo autos de FB",
+          "Alerta: Honda Civic bajo de precio",
+          "Limpiando base de datos",
+          "Filtrando por año > 2018",
         ],
         hermes: [
-          "Autorizando CHAT ID: -100...",
-          "Gestión de memoria RAG",
-          "Delegando a agentes",
-          "Monitoreando VPS",
+          "Ruteando mensaje a BluePrint",
+          "Consultando memoria RAG",
+          "Ejecutando script de sistema",
+          "Ping a agentes: 12ms",
         ],
       };
 
@@ -480,10 +607,10 @@
         const randomAction =
           actions[Math.floor(Math.random() * actions.length)];
         addLog(randomAgent, randomAction);
-      }, 4000);
+      }, 3000);
 
       updateUI();
-      addLog(agents[0], "Sistema configurado con éxito.");
+      addLog(agents[0], "Sistema Hermes V3 conectado y monitoreando.");
       requestAnimationFrame(gameLoop);
     </script>
   </body>
